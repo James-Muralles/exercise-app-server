@@ -26,7 +26,7 @@ const UserSchema =  new mongoose.Schema(
         min: 5,
     },
  },
-    { timestamps: true }
+ { timestamps: true, toJSON: { getters: true } }
 );
 
 const User = mongoose.model('User', UserSchema);

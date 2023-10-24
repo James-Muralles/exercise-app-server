@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import User from './models/User.js'
+import authRoutes from "./routes/auth.js"
+import {users} from './data/data.js';
+
 /*  CONFIGURATIONS */
 
 
@@ -21,6 +24,7 @@ app.use(cors());
 
 
 /* ROUTES */
+app.use("/login", authRoutes);
 
 
 
@@ -34,11 +38,11 @@ mongoose
 })
 .then(async() =>{
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
-    User.createCollection()
-    .then((collection)=>{
-        console.log(collection)
+    // User.createCollection()
+    // .then((collection)=>{
+    //     console.log(collection)
+    User.insertMany(users);
 
     })
     
-})
 .catch((error) => console.log(`${error} did not connect`));

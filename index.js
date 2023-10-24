@@ -5,7 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import User from './models/User.js'
 /*  CONFIGURATIONS */
 
 
@@ -28,12 +28,17 @@ app.use(cors());
 
 const PORT = process.env.PORT || 9000;
 mongoose
-.connect(process.env.MONGO.URL,{
+.connect(process.env.MONGO_URL,{
     useNewUrlParser: true,
-    useUnifiedTopolpgy: true,
+    useUnifiedTopology: true,
 })
 .then(async() =>{
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
+    User.createCollection()
+    .then((collection)=>{
+        console.log(collection)
+
+    })
+    
 })
 .catch((error) => console.log(`${error} did not connect`));
-

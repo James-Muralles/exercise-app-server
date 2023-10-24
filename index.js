@@ -7,6 +7,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import User from './models/User.js'
 import authRoutes from "./routes/auth.js"
+import userRoutes from "./routes/user.js";
+import registerRoutes from "./routes/register.js";
 import {users} from './data/data.js';
 
 /*  CONFIGURATIONS */
@@ -19,12 +21,16 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 app.use(morgan("common"));
 app.use(bodyParser.json()) ;
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 
 /* ROUTES */
-app.use("/login", authRoutes);
+app.use("/auth", authRoutes);
+app.use("/auth", registerRoutes);
+app.use('/api', userRoutes); // You can specify your own API version or path
+
 
 
 
@@ -38,10 +44,12 @@ mongoose
 })
 .then(async() =>{
     app.listen(PORT,() => console.log(`Listening on port ${PORT}`));
+    
     // User.createCollection()
     // .then((collection)=>{
     //     console.log(collection)
-    User.insertMany(users);
+    // await mongoose.connection.db.dropDatabase();
+    // User.insertMany(users);
 
     })
     

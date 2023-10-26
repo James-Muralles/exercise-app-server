@@ -1,9 +1,15 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { validationResult } from 'express-validator'; // Import validationResult
 import User from "../models/User.js";
 
-/* LOGGING IN */
 export const login = async (req, res) => {
+  // Check for validation errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username: username });

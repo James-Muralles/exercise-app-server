@@ -9,7 +9,9 @@ import User from './models/User.js'
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/user.js";
 import registerRoutes from "./routes/register.js";
-import {users} from './data/data.js';
+import exerciseRoutes from "./routes/exercise.js";
+import {users, exercises, exercise} from './data/data.js';
+import Exercise from "./models/Exercise.js";
 
 /*  CONFIGURATIONS */
 
@@ -29,7 +31,8 @@ app.use(cors());
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/auth", registerRoutes);
-app.use('/api', userRoutes); // You can specify your own API version or path
+app.use('/api', userRoutes);
+app.use('/exercise', exerciseRoutes); 
 
 
 
@@ -50,6 +53,8 @@ mongoose
     //     console.log(collection)
     // await mongoose.connection.db.dropDatabase();
     // User.insertMany(users);
+    // await Exercise.deleteMany({})
+    // Exercise.insertMany(exercises);
 
     })
     

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const excerciseSchema = new Schema(
+const exerciseSchema = new Schema(
     {
         name: {
             type: String,
@@ -42,6 +42,6 @@ const excerciseSchema = new Schema(
      { timestamps: true, toJSON: { getters: true } }
     );
 
-    const Exercise = mongoose.model('Exercise', excerciseSchema);
+    const Exercise = mongoose.model('Exercise', exerciseSchema);
 
     export default Exercise;

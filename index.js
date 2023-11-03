@@ -10,8 +10,12 @@ import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/user.js";
 import registerRoutes from "./routes/register.js";
 import exerciseRoutes from "./routes/exercise.js";
-import {users, exercises, exercise} from './data/data.js';
+import templateRoutes from "./routes/template.js";
+import sessionRoutes from "./routes/session.js";
+import {users, exercises, exercise, template, sessionData} from './data/data.js';
 import Exercise from "./models/Exercise.js";
+import Template from "./models/WorkoutTemplate.js";
+import Session from "./models/WorkoutSession.js";
 
 /*  CONFIGURATIONS */
 
@@ -33,6 +37,9 @@ app.use("/auth", authRoutes);
 app.use("/auth", registerRoutes);
 app.use('/api', userRoutes);
 app.use('/exercise', exerciseRoutes); 
+app.use('/templates', templateRoutes); 
+app.use('/sessions', sessionRoutes); 
+
 
 
 
@@ -55,6 +62,7 @@ mongoose
     // User.insertMany(users);
     // await Exercise.deleteMany({})
     // Exercise.insertMany(exercises);
+    Session.insertMany(sessionData);
 
     })
     

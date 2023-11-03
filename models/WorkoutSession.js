@@ -12,10 +12,37 @@ const sessionSchema = new Schema(
     },
     template: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Template',
+      ref: 'Template', 
       required: true,
     },
-    
+    exercises: [
+      {
+        exercise: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Exercise', 
+          required: true,
+        },
+        reps: {
+          type: Number,
+          required: true,
+        },
+        duration: {
+          type: String,
+          required: true,
+        },
+        notes: {
+          type: String,
+        },
+        completed: {
+          type: Boolean,
+          default: false,
+        },
+      },
+    ],
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true, toJSON: { getters: true } }
 );

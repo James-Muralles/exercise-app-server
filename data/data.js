@@ -18,6 +18,36 @@ export const users = [
 
 ]
 
+export const template = [{
+  "name": "Full Body Workout",
+  "exercises": ["653c12eb1aedcd4c628b8032","653c12eb1aedcd4c628b8033",],
+ "user": "6538242e81fcf550485752b4",
+}]
+
+export const sessionData = [{
+  name: 'Session 1',
+  template: '6545516ec98300eaee49de6a', 
+  exercises: [
+    {
+      exercise: '653c12eb1aedcd4c628b8032', 
+      reps: 10,
+      duration: '1 minute',
+      notes: 'Perform with proper form.',
+      completed: true, 
+    },
+    {
+      exercise: '653c12eb1aedcd4c628b8033', 
+      reps: 15,
+      duration: '45 seconds',
+      notes: 'Use a moderate weight.',
+      completed: false, 
+    },
+    
+  ],
+  completed: true, 
+}];
+
+
 
 export const exercise = [
 

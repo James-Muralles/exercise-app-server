@@ -29,5 +29,21 @@ export const createSession = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+
+export const getSessions = async (req, res) => {
+  try {
+    const sessions = await Session.find({ user: req.user._id });
+    res.status(200).json(sessions);
+  } catch (error) {
+    console.error('Error getting sessions:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
+  
+  
   
  

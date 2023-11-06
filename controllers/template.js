@@ -1,6 +1,7 @@
 import Template from "../models/WorkoutTemplate.js";
 import Exercise from "../models/Exercise.js";
 
+
 export const createTemplate = async (req, res) => {
     try {
       // Get data from the request body
@@ -26,6 +27,27 @@ export const createTemplate = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+  export const getTemplates = async (req, res) => {
+    try {
+      console.log(req.user)
+      const templates = await Template.find({ user: req.user.id.toString() });
+      res.status(200).json(templates);
+    } catch (error) {
+      console.error('Error getting templates:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+export const getAllTemplates = async (req, res) => {
+  try {
+    const templates = await Template.find();
+    res.status(200).json(templates);
+  } catch (error) {
+    console.error("Error getting templates:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
   
   
   

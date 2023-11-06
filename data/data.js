@@ -21,7 +21,7 @@ export const users = [
 export const template = [{
   "name": "Full Body Workout",
   "exercises": ["653c12eb1aedcd4c628b8032","653c12eb1aedcd4c628b8033",],
- "user": "6538242e81fcf550485752b4",
+ "user": "653848b8be705b870f699542",
 }]
 
 export const sessionData = [{

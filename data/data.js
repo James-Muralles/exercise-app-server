@@ -25,6 +25,7 @@ export const template = [{
 }]
 
 export const sessionData = [{
+  user: "653848b8be705b870f699542",
   name: 'Session 1',
   template: '6545516ec98300eaee49de6a', 
   exercises: [

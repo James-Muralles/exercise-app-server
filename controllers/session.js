@@ -7,7 +7,7 @@ export const createSession = async (req, res) => {
       const { name, templateId } = req.body;
   
       
-      const template = await Template.findById(templateId);
+      const template = await Template.findById(templateId.toString());
   
       if (!template) {
         return res.status(400).json({ error: 'Invalid template ID provided' });
@@ -33,7 +33,12 @@ export const createSession = async (req, res) => {
 
 export const getSessions = async (req, res) => {
   try {
-    const sessions = await Session.find({ user: req.user._id });
+    const sessions = await Session.find({ user: req.user.id.toString() })
+      .populate('template', 'name')
+      .populate({
+        path: 'exercises.exercise',
+        select: 'name',
+      });
     res.status(200).json(sessions);
   } catch (error) {
     console.error('Error getting sessions:', error);

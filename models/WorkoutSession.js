@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', 
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -38,6 +43,7 @@ const sessionSchema = new Schema(
           default: false,
         },
       },
+      
     ],
     completed: {
       type: Boolean,

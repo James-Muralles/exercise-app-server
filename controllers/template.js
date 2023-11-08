@@ -37,6 +37,7 @@ export const createTemplate = async (req, res) => {
     try {
       console.log(req.user)
       const templates = await Template.find({ user: req.user.id.toString() });
+      await Template.populate(templates, { path: 'exercises', model: 'Exercise', select: 'name type muscle description category difficulty instructions' })
       res.status(200).json(templates);
     } catch (error) {
       console.error('Error getting templates:', error);

@@ -54,6 +54,66 @@ export const getAllTemplates = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const editTemplate = async (req, res) => {
+  try {
+    const { name, exercises, user } = req.body;
+    const templateId = req.params.id; 
+
+    const existingTemplate = await Template.findById(templateId);
+
+    if (!existingTemplate) {
+      return res.status(404).json({ error: 'Template not found' });
+    }
+
+    if (existingTemplate.user.toString() !== user) {
+      return res.status(403).json({ error: 'Permission denied' });
+    }
+
+    const exerciseList = await Exercise.find({ _id: { $in: exercises } });
+
+    if (exerciseList.length !== exercises.length) {
+      return res.status(400).json({ error: 'Invalid exercise IDs provided' });
+    }
+
+    existingTemplate.name = name;
+    existingTemplate.exercises = exercises;
+
+    const updatedTemplate = await existingTemplate.save();
+
+    res.status(200).json(updatedTemplate);
+  } catch (error) {
+    console.error('Error editing template:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const deleteTemplate = async (reg, res) =>{
+  try{
+    const templateId = req.params.id;
+    const user = req.body.user;
+    
+    const existingTemplate = await getTemplateById(templateId);
+
+    if(!existingTemplate){
+
+      return res.status(404).json({error: 'Template not found'});
+    }
+    if(existingTemplate.user.toString() !== user){
+      return res.status(403).json({error: 'Premmission Denied'});
+
+    }
+
+    await existingTemplate.remove();
+    
+    res.status(204).end();
+  } catch(error){ 
+    console.error('Error deleting templae:', error);
+    res.status(500).json({error:'Internal server error'});
+  }
+};
+
+
   
   
   

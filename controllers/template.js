@@ -58,9 +58,11 @@ export const getAllTemplates = async (req, res) => {
 export const editTemplate = async (req, res) => {
   try {
     const { name, exercises, user } = req.body;
-    const templateId = req.params.id; 
-
+    const templateId = req.params.id;
+    console.log(req)
+    
     const existingTemplate = await Template.findById(templateId);
+    // console.log("here___",existingTemplate._id,"there___",templateId,"where___", user) 
 
     if (!existingTemplate) {
       return res.status(404).json({ error: 'Template not found' });
@@ -88,23 +90,27 @@ export const editTemplate = async (req, res) => {
   }
 };
 
-export const deleteTemplate = async (reg, res) =>{
+export const deleteTemplate = async (req, res) =>{
   try{
     const templateId = req.params.id;
-    const user = req.body.user;
+    const user = req.user.id;
+    console.log("Current Template",user);
+
     
-    const existingTemplate = await getTemplateById(templateId);
+    const existingTemplate = await Template.findById(templateId);
+    console.log("Existing", existingTemplate)
 
     if(!existingTemplate){
+      ;
 
       return res.status(404).json({error: 'Template not found'});
     }
     if(existingTemplate.user.toString() !== user){
-      return res.status(403).json({error: 'Premmission Denied'});
+      return res.status(403).json({error: 'Permmission Denied'});
 
     }
 
-    await existingTemplate.remove();
+    await existingTemplate.deleteOne()
     
     res.status(204).end();
   } catch(error){ 

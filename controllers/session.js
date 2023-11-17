@@ -4,19 +4,22 @@ import Session from '../models/WorkoutSession.js';
 export const createSession = async (req, res) => {
     try {
       
-      const { name, templateId } = req.body;
+      const { name, template, completed, user, exercises } = req.body;
   
       
-      const template = await Template.findById(templateId.toString());
+      const templates = await Template.findById(template);
+      console.log(template)
   
-      if (!template) {
+      if (!templates) {
         return res.status(400).json({ error: 'Invalid template ID provided' });
       }
   
       
       const session = new Session({
+        user, 
         name,
-        template: templateId,
+        exercises,
+        template: template,
         completed: completed || false,
       });
   

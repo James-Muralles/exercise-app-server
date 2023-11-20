@@ -49,6 +49,35 @@ export const getSessions = async (req, res) => {
   }
 };
 
+export const deleteSession = async (req, res) =>{
+  try{
+    const sessionId = req.params.id;
+    const user = req.user.id;
+    console.log("Current Session",sessionId);
+
+    
+    const existingSession = await Session.findById(sessionId);
+    console.log("Existing", existingSession)
+
+    if(!existingSession){
+      ;
+
+      return res.status(404).json({error: 'Session not found'});
+    }
+    if(existingSession.user.toString() !== user){
+      return res.status(403).json({error: 'Permmission Denied'});
+
+    }
+
+    await existingSession.deleteOne()
+    
+    res.status(204).end();
+  } catch(error){ 
+    console.error('Error deleting session:', error);
+    res.status(500).json({error:'Internal server error'});
+  }
+};
+
 
 
   

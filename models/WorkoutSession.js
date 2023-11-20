@@ -29,11 +29,13 @@ const sessionSchema = new Schema(
         },
         reps: {
           type: Number,
-          required: true,
+        },
+        weight: {
+          type: Number,
+
         },
         duration: {
           type: String,
-          required: true,
         },
         notes: {
           type: String,
